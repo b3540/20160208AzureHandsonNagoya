@@ -1,4 +1,4 @@
 <?php
 //PHPの表示テスト
-print('Hello,PHP!');
+print('Hello,PHP!!');
 ?>
