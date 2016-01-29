@@ -18,7 +18,7 @@
   </head>
   <body>
     <h1>Please Input Todo Task!</h1>
-    <div>
+    <div id="main-container">
         <form>
             <h3>Task Name</h3>
             <input class="form-control" id="task_name" placeholder="task name" />
