@@ -16,14 +16,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+    
+    <!-- My StyleSeet -->
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <h1>Please Input Todo Task!</h1>
-    <form>
-       <h3>Task Name</h3>
-       <input class="form-control" id="task_name" placeholder="task name" />
-    </form>
-    
+    <div>
+        <form>
+            <h3>Task Name</h3>
+            <input class="form-control" id="task_name" placeholder="task name" />
+        </form>
+    </div>
   </body>
 </html>
