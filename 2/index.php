@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,9 +19,12 @@
   <body>
     <h1>Please Input Todo Task!</h1>
     <div id="main-container">
-        <form>
-            <h3>Task Name</h3>
-            <input class="form-control" id="task_name" placeholder="task name" />
+        <form method="POST" action="./result.php">
+            <h3>名前</h3>
+            <input type="text" name="task_name" class="form-control" placeholder="task name" />
+            <h3>期限日</h3>
+            <input type="date" name="task_date" class="form-control" />
+            <input type="submit" value="submit" class="btn btn-default" />
         </form>
     </div>
     
