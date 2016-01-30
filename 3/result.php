@@ -15,19 +15,33 @@
     
     <!-- My StyleSeet -->
     <link rel="stylesheet" href="./style.css" />
+    <?php
+        session_start();
+    ?>
   </head>
   <body>
     <?php
         $task_name='nodata';
         $task_date='nodata';
 
-        if(isset($_POST['task_name'])){
+        if(isset($_POST['task_name'])&&isset($_POST['task_date'])){
             $task_name = $_POST['task_name'];
-        }
-
-        if(isset($_POST['task_date'])){
             $task_date = $_POST['task_date'];
+            
+            $task_array = array();
+            
+            if(isset($_SESSION['tasks'])){
+                $json = $_SESSION['tasks'];
+                $task_array = json_decode($json);
+            }
+            
+            $task = array('name'=>$task_name,'date'=>$task_date);
+            array_push($task_array,$task);
+            $json = json_encode($task_array);
+            $_SESSION['tasks'] = $json;
+            
         }
+        
         print('<h1>Todo</h1>');
 
         print('<h3>名前</h3>');
@@ -38,8 +52,9 @@
         print('<p>');
         print($task_date);
         print('</p>');
+        
     ?>
-
+    <a href="./index.php">前に戻る</a>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->

@@ -15,6 +15,9 @@
     
     <!-- My StyleSeet -->
     <link rel="stylesheet" href="./style.css" />
+    <?php
+        session_start();
+    ?>
   </head>
   <body>
     <h1>Please Input Todo Task!</h1>
@@ -26,6 +29,25 @@
             <input type="date" name="task_date" class="form-control" />
             <input type="submit" value="submit" class="btn btn-default" />
         </form>
+        
+        <h2>登録済みタスク</h2>
+        <?php
+            if(isset($_SESSION['tasks'])){
+                $json = $_SESSION['tasks'];
+                
+                $tasks = json_decode($json);
+                //print_r($tasks);
+                for($i =0;$i<count($tasks);$i++){
+                    print('<p>');
+                    print('name => ');
+                    print($tasks[$i]->name);
+                    print('date => ');
+                    print($tasks[$i]->date);
+                    print('<input type="checkbox" />');
+                    print('</p>');
+                }
+            }
+        ?>
     </div>
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
