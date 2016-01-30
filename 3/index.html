@@ -15,44 +15,58 @@
     
     <!-- My StyleSeet -->
     <link rel="stylesheet" href="./style.css" />
-    <?php
-        session_start();
-    ?>
   </head>
   <body>
     <h1>Please Input Todo Task!</h1>
     <div id="main-container">
         <form method="POST" action="./result.php">
             <h3>名前</h3>
-            <input type="text" name="task_name" class="form-control" placeholder="task name" />
+            <input id="text-name" type="text" name="task_name" class="form-control" placeholder="task name" />
             <h3>期限日</h3>
-            <input type="date" name="task_date" class="form-control" />
-            <input type="submit" value="submit" class="btn btn-default" />
+            <input id="text-date" type="date" name="task_date" class="form-control" />
+            <input id="button-submit" type="button" value="submit" class="btn btn-default" />
         </form>
-        
-        <h2>登録済みタスク</h2>
-        <?php
-            if(isset($_SESSION['tasks'])){
-                $json = $_SESSION['tasks'];
-                
-                $tasks = json_decode($json);
-                //print_r($tasks);
-                for($i =0;$i<count($tasks);$i++){
-                    print('<p>');
-                    print('name => ');
-                    print($tasks[$i]->name);
-                    print('date => ');
-                    print($tasks[$i]->date);
-                    print('<input type="checkbox" />');
-                    print('</p>');
-                }
-            }
-        ?>
+        <select id="select-tasks" size="10">
+        </select>
     </div>
+    
+
     
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+        $(function(){
+            var update_task = function(){
+                $.get('api.php',{},function(data){
+                    for(var i=0;i<data.length;i++){
+                        $('#select-tasks').append(
+                        '<option>'
+                        +' 名前'+data[i].task_name+
+                        +' 期限日'+data[i].task_date+
+                        '</option>');
+                    }
+                });
+            }
+            $('#button-submit').click(function(){
+                var name = $('#text-name').val();
+                var date = $('#text-date').val();
+                var task_data = {
+                    task:{
+                        task_name:name,
+                        task_date:date
+                    }
+                };
+                $.post('api.php',task_data,function(data){
+                    update_task();
+                    alert(data.message);                    
+                });
+            });
+            update_task();
+            
+              
+        });
+    </script>
   </body>
 </html>
