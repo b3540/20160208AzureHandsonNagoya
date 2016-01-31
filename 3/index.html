@@ -26,7 +26,7 @@
             <input id="text-date" type="date" name="task_date" class="form-control" />
             <input id="button-submit" type="button" value="submit" class="btn btn-default" />
         </form>
-        <select id="select-tasks" size="10">
+        <select id="select-tasks" multiple class="form-control">
         </select>
     </div>
     
@@ -40,12 +40,13 @@
         $(function(){
             var update_task = function(){
                 $.get('api.php',{},function(data){
+                    $('#select-tasks').empty();
                     for(var i=0;i<data.length;i++){
                         $('#select-tasks').append(
                         '<option>'
-                        +' 名前'+data[i].task_name+
-                        +' 期限日'+data[i].task_date+
-                        '</option>');
+                        +' 名前'+data[i].task_name
+                        +' 期限日'+data[i].task_date
+                        +'</option>');
                     }
                 });
             }
