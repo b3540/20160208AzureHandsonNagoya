@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>Websocket Text Chat!</h1>
+    <h1>Welcome Text Chat!</h1>
+    <p>Please login with your name</p>
     <div id="main-container">
         <input type="text" id="name" class="form-control" placeholder="takeshi" />
         <input id="button-login" type="button" value="login" class="btn btn-default" />
@@ -31,7 +32,7 @@
         $(function(){
             $('#button-login').click(function(){
                 var name = $('#name').val();
-                document.cookie = 'name=' + encodeURIComponent(name);
+                document.cookie = 'name=' + encodeURIComponent(name)+';';
                 document.location.href = './room.html';
             });
             

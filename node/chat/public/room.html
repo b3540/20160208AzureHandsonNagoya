@@ -16,12 +16,17 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>Websocket Text Chat!</h1>
+    <h1>Welcome Text Chatroom!</h1>
+    
     <div id="main-container">
         <p>
            現在のチャットルームの人数
            <strong id='usercount'></strong>
            人 
+        </p>
+        <p>
+            <strong id='username'></strong>
+            としてログインしています
         </p>
         <input type="text" id="message" class="form-control" placeholder="Hello!" />
         <input id="button-send" type="button" value="send" class="btn btn-default" />
@@ -38,25 +43,33 @@
         var socket = io();
         var username = 'unknown';
         $(function(){
-            var cookie = document.cookie;
-            var unescapedname = cookie.split('=')[1]
+            var cookies = document.cookie.split('; ');
+            var unescapedname = '';
+            for(var i=0;i<cookies.length;i++){
+                var pair = cookies[i].split('=');
+                if(pair[0]==='name'){
+                    unescapedname = pair[1];
+                }
+            }
+            
             if(unescapedname===undefined){
                 document.location.href = './index.html';
             }
             username = decodeURIComponent(unescapedname);
+            $('#username').text(username);
             socket.on('broadcast-message',function(data){
                 var list = $('#message-list');
-                list.append('<li>'+data.name+':'+data.message+'</li>')
+                list.prepend('<li class="li-message">'+data.name+':'+data.message+'</li>')
                 
             });
             socket.on('broadcast-login',function(data){
                 $('#usercount').text(data.count);
-                $('#message-list').append('<li>'+data.name+'さんがログインしました</li>');
+                $('#message-list').prepend('<li class="li-message system-message">'+data.name+'さんがログインしました</li>');
                 
             });
             socket.on('broadcast-logout',function(data){
                 $('#usercount').text(data.count);
-                $('#message-list').append('<li>'+data.name+'さんがログアウトしました</li>');
+                $('#message-list').prepend('<li class="li-message system-message">'+data.name+'さんがログアウトしました</li>');
             });
             
             window.onload = function(event){
