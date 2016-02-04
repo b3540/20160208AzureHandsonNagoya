@@ -6,10 +6,12 @@ var server = http.createServer(app);
 var io = socketio(server);
 var port = process.env.PORT||1337;
 
-app.get('/', function(req, res){
+app.use(express.static('public'));
+
+/*app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
-
+*/
 io.on('connection', function(socket){
     socket.on('message',function(message){ 
         io.emit('broadcast-message',message);
