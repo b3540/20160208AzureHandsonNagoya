@@ -18,11 +18,8 @@
   <body>
     <h1>Websocket Text Chat!</h1>
     <div id="main-container">
-        
-        <input type="text" id="message" class="form-control" placeholder="Hello!" />
-        <input id="button-send" type="button" value="send" class="btn btn-default" />
-
-        <ul id="message-list"></ul>
+        <input type="text" id="name" class="form-control" placeholder="takeshi" />
+        <input id="button-login" type="button" value="login" class="btn btn-default" />
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -31,14 +28,11 @@
     <script src="/socket.io/socket.io.js"></script>
     
     <script type="text/javascript">
-        var socket = io();
-        socket.on('broadcast-message',function(message){
-            $('#message-list').append('<li>'+message+'</li>');
-        });
         $(function(){
-            $('#button-send').click(function(){
-                var message = $('#message').val();
-                socket.emit('message',message);
+            $('#button-login').click(function(){
+                var name = $('#name').val();
+                document.cookie = 'name=' + encodeURIComponent(name);
+                document.location.href = './room.html';
             });
             
         });
