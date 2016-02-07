@@ -16,7 +16,7 @@ PHPで簡単なTodoを記録するアプリです
 ## Node.jsハンズオン
 Node.jsとWebSocketを使ったリアルタイムチャットアプリです
 
-[デモサイト](http://jazugstudenthandson-php.azurewebsites.net/)
+[デモサイト](http://jazugstudenthandson-node.azurewebsites.net/)
 
 名前を入れてloginボタンを押すとチャットルームにログインします
 
