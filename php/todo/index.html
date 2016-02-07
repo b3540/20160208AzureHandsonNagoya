@@ -1,43 +1,45 @@
+<!-- Todo登録、表示画面 -->
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>JAZUGNagoyaHandson</title>
+    <title>PHPTodoApp</title>
 
     <!-- Bootstrap -->
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-    
     <!-- My StyleSeet -->
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <h1>Please Input Todo Task!</h1>
     <div id="main-container">
+        <!-- Todoの名前と期限日 -->
         <h3>名前</h3>
         <input id="text-name" type="text" name="task_name" class="form-control" placeholder="task name" />
         <h3>期限日</h3>
         <input id="text-date" type="date" name="task_date" class="form-control" />
         <input id="button-submit" type="button" value="submit" class="btn btn-default" />
-        <select id="select-tasks" multiple class="form-control">
-        </select>
+        
+        <!-- Todo一覧のリスト -->
+        <select id="select-tasks" multiple class="form-control"></select>
     </div>
     
-
-    
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
+    <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script type="text/javascript">
+    <!-- ページが読み込まれた時に実行されるjavascript -->
+    <script type="text/javascript">
         $(function(){
+            //タスク一覧をapi.phpから取得するupdate_task関数
             var update_task = function(){
+                //api.phpにgetリクエスト
                 $.get('api.php',{},function(data){
+                    
+                    //返ってきたタスク一覧データを表示
                     $('#select-tasks').empty();
                     for(var i=0;i<data.length;i++){
                         $('#select-tasks').append(
@@ -46,9 +48,14 @@
                         +' 期限日'+data[i].task_date
                         +'</option>');
                     }
+                    
                 });
             }
+            
+            //submitボタンがクリックされたとき
             $('#button-submit').click(function(){
+                
+                //タスクの名前と期限日を取得
                 var name = $('#text-name').val();
                 var date = $('#text-date').val();
                 var task_data = {
@@ -57,14 +64,20 @@
                         task_date:date
                     }
                 };
+                
+                //登録するタスクをapi.phpにpostリクエスト
                 $.post('api.php',task_data,function(data){
+                    
+                    //成功したらタスク一覧を更新してalert
                     update_task();
-                    alert(data.message);                    
+                    alert(data.message);
+                                     
                 });
             });
-            update_task();
             
-              
+            //初回タスク一覧読み込み
+            update_task();
+   
         });
     </script>
   </body>
