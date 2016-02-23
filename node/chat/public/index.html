@@ -15,20 +15,20 @@
   </head>
   <body>
     <h1>Welcome Text Chat!</h1>
-    <p>Please login with your name</p>
     <!--名前とログインボタン-->
-    <div id="main-container">
+    <div id="main-container" class="container">
+        <p>Please login with your name</p>
         <input id="name" type="text" class="form-control" placeholder="takeshi" />
-        <input id="button-login" type="button" value="login" class="btn btn-default" />
+        <input id="button-login" type="button" value="login" class="btn btn-default pull-right" />
     </div>
-    
+
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!-- WebSocket用ライブラリsocket.ioを読み込む(ファイルは自動生成されている) -->
     <script src="/socket.io/socket.io.js"></script>
-    
+
     <!-- ページが読み込まれた時に実行されるスクリプト -->
     <script type="text/javascript">
         $(function(){
@@ -41,9 +41,9 @@
                 //チャットルームへ
                 document.location.href = './room.html';
             });
-            
+
         });
     </script>
-    
+
   </body>
 </html>
