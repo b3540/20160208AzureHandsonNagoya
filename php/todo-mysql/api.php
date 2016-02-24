@@ -9,12 +9,13 @@ mysql_set_charset('utf-8');
 
 if($_SERVER["REQUEST_METHOD"] == "GET"){
     http_response_code(200);
-    if(isset($_COOKIE['tasks'])){
-        $json = $_COOKIE['tasks'];
-        print($json);
-    }else{
-        print('{}');
+    $result = array();
+    $sqlresult = mysql_query('select * from todo');
+    while($i =mysql_fetch_assoc($sqlresult)){
+        array_push($result,array('task_name'=>$i['name'],'task_date'=>$i['date']));
     }
+    print(json_encode($result));
+    
 }else if($_SERVER["REQUEST_METHOD"] == "POST"){
     http_response_code(200);
     
@@ -22,17 +23,6 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
     $name = $task['task_name'];
     $date = $task['task_date'];
     $result = mysql_query('insert into todo(name,date) values ("'.$name.'","'.$date.'")');
-    //print(mysql_error($sql));
-    /*
-    $task_array = array();
-    if(isset($_COOKIE['tasks'])){
-        $json = $_COOKIE['tasks'];
-        $task_array = json_decode($json);
-    }
-    
-    array_push($task_array,$task);
-    setcookie('tasks',json_encode($task_array));
-    */
     print('{"message":"'.mysql_error($sql).'"}');
 }else {
     http_response_code(400); 
