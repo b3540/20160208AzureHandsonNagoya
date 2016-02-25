@@ -2,6 +2,12 @@
 このプロジェクトは2016/2/28の
 [名古屋Azureハンズオン](https://jazug-student.doorkeeper.jp/events/38201)
 で使うPHPとNode.jsのコードが入っています
+
+## ハンズオンの資料
+
+- [ハンズオンの準備](https://doc.co/ADYWUk)
+- [ハンズオン資料](https://doc.co/2QpEsk)
+
 ## PHPハンズオン
 PHPで簡単なTodoを記録するアプリです
 
